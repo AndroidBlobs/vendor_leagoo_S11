@@ -1,0 +1,18 @@
+on post-fs-data
+    # add for fpsensor Fingerprint
+    chmod 660 /dev/fpsensor
+    chown system system /dev/fpsensor
+
+    mkdir /data/fpsensor
+    chown system system /data/fpsensor
+    chmod 660 /data/fpsensor/socket
+    chown system system /data/fpsensor/socket
+
+on post-fs
+    chown system system /dev/sunwave_fp
+    chmod 664 /dev/sunwave_fp
+
+service swfingerprint-hal-1.0 /vendor/bin/hw/vendor.sw.swfingerprint@1.0-service
+    class late_start
+    user system
+    group system

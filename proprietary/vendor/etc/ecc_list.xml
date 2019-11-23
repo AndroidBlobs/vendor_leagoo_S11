@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EccTable>
+    <!-- 3GPP 22.101 -->
+    <EccEntry Ecc="112" Category="0" Condition="1" />
+    <EccEntry Ecc="995" Category="0" Condition="1" />
+    <EccEntry Ecc="999" Category="0" Condition="1" />
+</EccTable>

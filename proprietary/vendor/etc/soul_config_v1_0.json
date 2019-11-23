@@ -1,0 +1,102 @@
+// Configuration options
+{
+  "nvram": [
+    /* Order is Important! */
+    { "key": "device.flag.uuid", "length": 36 },
+    { "key": "sensor.cali.proximity", "length": 28 },
+    { "key": "device.reliability.uncompleted_completed", "length": 2 },
+    { "key": "device.fakerom.total", "length": 8 },
+    { "key": "device.fakerom.free", "length": 8 },
+    { "key": "device.fakeram.total", "length": 4 },
+    { "key": "device.product.model", "length": 32 },
+    { "key": "device.bootanim.indicator", "length": 1 },
+    { "key": "device.factory.result", "length": 256 },
+    { "key": "device.product.brand", "length": 32 }
+  ],
+  "dev-init": [
+    /* Order is *NOT* Important. */
+    /*
+    { // <template>
+      "key": "<key>",
+      "bootable": "<false|true|system_property>",
+      "type": "<int/long/string>",
+      "node": "<kernel/node/to/write>|property:<...>|specific:[...]>|<none>",
+      "persistent": "<nvram:<...>|[''|property:<...>]|specific:[...]>",
+      ["default": "<system_property>"],
+      ["extra": "plain text"]
+    },
+    */
+    { // sensor proximity calibration data restore
+      "key": "ssr.proximity.cali",
+      "bootable": "ro.vendor.freeme.hw_sensor_proximity",
+      "type": "string",
+      "node": "/sys/bus/platform/drivers/als_ps/config",
+      "persistent": "nvram:sensor.cali.proximity"
+    },
+    { // touch-panel glove mode
+      "key": "tp.glove.enable",
+      "bootable": "ro.vendor.freeme.tp_glove_support",
+      "type": "int",
+      "node": "/sys/class/syna/glvmode",
+      "persistent": "property:persist.vendor.freeme.glove.enable"
+    },
+    { // sensor gesture generic mode
+      "key": "ssr.gesture.generic",
+      "bootable": "false",
+      "type": "int",
+      "node": "/sys/class/tmg3993/tpmode",
+      "persistent": "property:persist.vendor.freeme.gesture.generic"
+    },
+    { // wifi mac address generator
+      "key": "wifi.mac_address.generator",
+      "bootable": "ro.vendor.freeme.auto_generate_mac",
+      "type": "string",
+      "node": "<none>",
+      "persistent": "specific:"
+    },
+    { // fake rom total
+      "key": "device.fakerom.total",
+      "bootable": "ro.vendor.freeme.fake_rom_ram",
+      "type": "long",
+      "node": "/sys/class/droi_sb/sba",
+      "persistent": "nvram:device.fakerom.total"
+    },
+    { // fake rom free
+      "key": "device.fakerom.free",
+      "bootable": "ro.vendor.freeme.fake_rom_ram",
+      "type": "long",
+      "node": "/sys/class/droi_sb/sbf",
+      "persistent": "nvram:device.fakerom.free"
+    },
+    { // fake ram total
+      "key": "device.fakeram.total",
+      "bootable": "ro.vendor.freeme.fake_rom_ram",
+      "type": "int",
+      "node": "/sys/class/droi_meminfo/droiram_total",
+      "persistent": "nvram:device.fakeram.total"
+    },
+    { // fake product model
+      "key": "device.product.model",
+      "bootable": "ro.vendor.freeme.alter.product_model",
+      "type": "string",
+      "node": "property:persist.freeme.product.model",
+      "persistent": "nvram:device.product.model",
+      "default": "ro.product.model"
+    },
+    { // bootanimation logo indicator
+      "key": "device.bootanim.indicator",
+      "bootable": "ro.vendor.freeme.alter.boot_animation",
+      "type": "int",
+      "node": "/sys/power/custom_changelogo",
+      "persistent": "nvram:device.bootanim.indicator"
+    },
+    { // fake product brand
+      "key": "device.product.brand",
+      "bootable": "ro.vendor.freeme.alter.product_brand",
+      "type": "string",
+      "node": "property:persist.freeme.product.brand",
+      "persistent": "nvram:device.product.brand",
+      "default": "ro.product.brand"
+    }
+  ]
+}

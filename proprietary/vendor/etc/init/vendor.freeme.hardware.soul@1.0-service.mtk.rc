@@ -1,0 +1,8 @@
+on property:vendor.service.nvram_init=Ready
+    start soul
+
+service soul /vendor/bin/hw/vendor.freeme.hardware.soul@1.0-service
+    class main
+    user root
+    group system bluetooth media audio radio
+    disabled
